@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assessment | Mind Haven</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div id="emergency-bar" class="emergency-bar">
+        <p>Immediate danger? Call emergency services or <a href="helplines.html">click here for crisis lifelines.</a></p>
+    </div>
+
+    <main class="container assessment-container">
+        <div class="progress-wrapper">
+            <div id="progress-bar" class="progress-bar"></div>
+        </div>
+        <p id="question-counter" class="counter">Question 1 of X</p>
+
+        <div id="question-container" class="question-box">
+            <h2 id="question-text">Loading question...</h2>
+            
+            <div id="options-container" class="options-grid"></div>
+        </div>
+
+        <div class="nav-buttons">
+            <button id="prev-btn" class="secondary-btn" onclick="prevQuestion()" style="display: none;">Back</button>
+            <button id="next-btn" class="primary-btn" onclick="nextQuestion()" disabled>Next</button>
+        </div>
+    </main>
+
+    <script src="js/quiz-state.js"></script>
+    <script src="js/ui-interactions.js"></script>
+</body>
+</html>

@@ -1,0 +1,13 @@
+{
+  "name": "mind-haven-backend",
+  "description": "Anonymous scoring API for Mind Haven",
+  "engines": {
+    "node": "18"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "firebase-admin": "^11.8.0",
+    "firebase-functions": "^4.3.1"
+  }
+}

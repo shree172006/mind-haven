@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Results | Mind Haven</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div id="emergency-bar" class="emergency-bar">
+        <p>If you are in immediate danger, please call emergency services or <a href="helplines.html">click here for crisis lifelines.</a></p>
+    </div>
+
+    <main class="container results-container">
+        <header>
+            <h1>Your Assessment Results</h1>
+            <p>Thank you for taking the time to check in with yourself.</p>
+        </header>
+
+        <section class="score-card">
+            <h2 id="severity-level">Calculating...</h2>
+            <p id="score-explanation">Please wait while we process your anonymous answers.</p>
+        </section>
+
+        <section class="toolkit-section">
+            <h3>Your Customized Coping Toolkit</h3>
+            <div id="toolkit-content" class="toolkit-grid">
+                </div>
+        </section>
+
+        <footer class="disclaimer alert-disclaimer">
+            <p><strong>🚨 MEDICAL DISCLAIMER:</strong> This score is a guideline, not a diagnosis. Mind Haven is not a doctor. If you are feeling overwhelmed, please share these results with a licensed therapist or medical professional.</p>
+        </footer>
+
+        <div class="nav-buttons">
+            <button class="secondary-btn" onclick="restart()">Retake Assessment</button>
+            <a href="helplines.html" class="primary-btn">View All Helplines</a>
+        </div>
+    </main>
+
+    <script src="js/quiz-state.js"></script>
+    <script src="js/results-logic.js"></script>
+</body>
+</html>

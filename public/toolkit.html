@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wellness Toolkit | Mind Haven</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <div id="emergency-bar" class="emergency-bar">
+        <p>Immediate danger? Call emergency services or <a href="resources.html#helplines">click here for crisis lifelines.</a>
+        </p>
+    </div>
+
+    <header class="navbar">
+        <div class="nav-brand">Mind Haven</div>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="assessment.html">Assessment</a>
+            <a href="toolkit.html" class="active">Toolkit</a>
+            <a href="resources.html">Resources</a>
+            <a href="data.html">Admin Data</a>
+        </nav>
+    </header>
+
+    <main class="container">
+        <header>
+            <h1>Your Wellness Toolkit</h1>
+            <p>Evidence-based exercises to help you find your center and manage stress.</p>
+        </header>
+
+        <div class="toolkit-grid">
+
+            <div class="tool-card">
+                <div class="tool-icon">🌬️</div>
+                <h3>Box Breathing</h3>
+                <p>Calm the nervous system and reduce acute anxiety.</p>
+                <button class="primary-btn" onclick="window.location.href='exercise.html?type=breathing'">Start
+                    Exercise</button>
+            </div>
+
+            <div class="tool-card">
+                <div class="tool-icon">✋</div>
+                <h3>5-4-3-2-1 Grounding</h3>
+                <p>Pull your mind away from anxious thoughts.</p>
+                <button class="primary-btn" onclick="window.location.href='exercise.html?type=grounding'">Start
+                    Exercise</button>
+            </div>
+
+            <div class="tool-card">
+                <div class="tool-icon">📓</div>
+                <h3>Thought Record</h3>
+                <p>Challenge negative thinking patterns.</p>
+                <button class="secondary-btn" onclick="window.location.href='thought-record.html'">Open Journal</button>
+            </div>
+
+            <div class="tool-card">
+                <div class="tool-icon">🛡️</div>
+                <h3>Safety Plan</h3>
+                <p>Review your personal safety plan.</p>
+                <button class="secondary-btn" onclick="window.location.href='safety-plan.html'">View Plan</button>
+            </div>
+
+        </div>
+    </main>
+    <script src="js/interactive.js"></script>
+</body>
+
+</html>

@@ -8,8 +8,19 @@
 </head>
 <body>
     <div id="emergency-bar" class="emergency-bar">
-        <p>If you are in immediate danger, please call emergency services or <a href="helplines.html">click here for crisis lifelines.</a></p>
+        <p>If you are in immediate danger, please call emergency services or <a href="resources.html#helplines">click here for crisis lifelines.</a></p>
     </div>
+
+    <header class="navbar">
+        <div class="nav-brand">Mind Haven</div>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="assessment.html">Assessment</a>
+            <a href="toolkit.html">Toolkit</a>
+            <a href="resources.html">Resources</a>
+            <a href="data.html">Admin Data</a>
+        </nav>
+    </header>
 
     <main class="container results-container">
         <header>
@@ -17,15 +28,92 @@
             <p>Thank you for taking the time to check in with yourself.</p>
         </header>
 
-        <section class="score-card">
-            <h2 id="severity-level">Calculating...</h2>
-            <p id="score-explanation">Please wait while we process your anonymous answers.</p>
-        </section>
-
-        <section class="toolkit-section">
-            <h3>Your Customized Coping Toolkit</h3>
-            <div id="toolkit-content" class="toolkit-grid">
+        <!-- Professional Report Card -->
+        <section class="report-card">
+            <div class="report-header">
+                <div>
+                    <h2 id="report-title">Mental Health Assessment Report</h2>
+                    <p style="color: var(--text-muted); margin:0; font-size:0.9rem;" id="report-timestamp">—</p>
                 </div>
+                <div class="report-actions">
+                    <button class="secondary-btn" onclick="toggleChart()">📊 Chart</button>
+                    <button class="secondary-btn" onclick="downloadCSV()">📥 CSV</button>
+                    <button class="primary-btn" onclick="window.print()">🖨️ Print</button>
+                    <button class="secondary-btn" onclick="restart()">🔄 Retake</button>
+                </div>
+            </div>
+
+            <!-- Score Summary Section -->
+            <div class="report-summary">
+                <h3 id="severity-level" style="margin:0; color: var(--primary-color);">Loading Results...</h3>
+                <p id="score-explanation" style="margin:8px 0 0 0;">Processing your assessment...</p>
+            </div>
+
+            <!-- Main Grid: Left Metrics + Right Details -->
+            <div class="report-grid">
+                <!-- LEFT COLUMN: Score Metrics -->
+                <div class="report-left">
+                    <div class="score-panel">
+                        <h4>Score Breakdown</h4>
+                        <div class="metric">
+                            <div class="metric-header">
+                                <div class="metric-label">Total Score</div>
+                                <div id="metric-total" class="metric-value">—</div>
+                            </div>
+                            <div class="metric-bar"><div id="bar-total" class="metric-bar-fill"></div></div>
+                            <div class="metric-note">Combined assessment across all areas</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-header">
+                                <div class="metric-label">Depression</div>
+                                <div id="metric-dep" class="metric-value">—</div>
+                            </div>
+                            <div class="metric-bar"><div id="bar-dep" class="metric-bar-fill"></div></div>
+                            <div class="metric-note">Based on 9 questions</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-header">
+                                <div class="metric-label">Anxiety</div>
+                                <div id="metric-anx" class="metric-value">—</div>
+                            </div>
+                            <div class="metric-bar"><div id="bar-anx" class="metric-bar-fill"></div></div>
+                            <div class="metric-note">Based on 7 questions</div>
+                        </div>
+                    </div>
+
+                    <canvas id="result-chart" style="max-width:100%;display:none; margin-top:12px;"></canvas>
+                </div>
+
+                <!-- RIGHT COLUMN: Details and Recommendations -->
+                <div class="report-right">
+                    <!-- Interpretation Section -->
+                    <div class="detail-section">
+                        <h4>📋 What This Means</h4>
+                        <div id="interpretation-content" style="line-height:1.6;">
+                            <p>Your results are being analyzed...</p>
+                        </div>
+                    </div>
+
+                    <!-- Coping Toolkit -->
+                    <div class="detail-section">
+                        <h4>💡 Recommended Coping Strategies</h4>
+                        <div id="toolkit-content" class="toolkit-content"></div>
+                    </div>
+
+                    <!-- Next Steps -->
+                    <div class="detail-section">
+                        <h4>📍 What to Do Next</h4>
+                        <div id="next-steps-content" style="line-height:1.6;">
+                            <ul style="margin:0; padding-left:20px;">
+                                <li><strong>Track your progress:</strong> Retake this assessment in 2–4 weeks to see changes.</li>
+                                <li><strong>Reach out:</strong> Share results with a trusted friend, family member, or professional.</li>
+                                <li><strong>Practice:</strong> Use the toolkit exercises daily for best results.</li>
+                                <li><strong>Get help:</strong> If needed, visit our <a href="resources.html#helplines">helplines</a> or contact a therapist.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
 
         <footer class="disclaimer alert-disclaimer">
@@ -34,11 +122,14 @@
 
         <div class="nav-buttons">
             <button class="secondary-btn" onclick="restart()">Retake Assessment</button>
-            <a href="helplines.html" class="primary-btn">View All Helplines</a>
+            <a href="resources.html#helplines" class="primary-btn">View All Helplines</a>
         </div>
     </main>
 
     <script src="js/quiz-state.js"></script>
     <script src="js/results-logic.js"></script>
+    <script src="js/interactive.js"></script>
+    <!-- Chart.js from CDN for basic reporting visuals -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </body>
 </html>

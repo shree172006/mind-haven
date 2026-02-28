@@ -1,0 +1,10 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Allow functions to write results
+    match /results/{document=**} {
+      allow write: if request.auth == null || request.auth != null;
+      allow read: if false; // Block public reads by default; adjust as needed
+    }
+  }
+}

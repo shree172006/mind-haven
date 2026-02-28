@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mindful Exercise | Mind Haven</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <header class="navbar">
+        <div class="nav-brand">Mind Haven</div>
+        <nav>
+            <a href="toolkit.html" class="active">← Back to Toolkit</a>
+            <a href="resources.html">Resources</a>
+        </nav>
+    </header>
+
+    <main class="container exercise-container">
+
+        <section id="breathing-section" class="exercise-section" style="display: none;">
+            <header>
+                <h1>Box Breathing</h1>
+                <p>Follow the circle. Inhale for 4 seconds, hold for 4, exhale for 4, and hold for 4.</p>
+            </header>
+
+
+
+            [Image of box breathing technique diagram]
+
+
+            <div class="breathing-wrapper">
+                <div id="breathing-circle" class="breathing-circle">
+                    <span id="breathing-text">Ready</span>
+                </div>
+            </div>
+
+            <div class="nav-buttons" style="justify-content: center; gap: 20px;">
+                <button id="start-breath-btn" class="primary-btn" onclick="startBreathing()">Start Breathing</button>
+                <button id="stop-breath-btn" class="secondary-btn" onclick="stopBreathing()"
+                    style="display: none;">Stop</button>
+            </div>
+        </section>
+
+        <section id="grounding-section" class="exercise-section" style="display: none;">
+            <header>
+                <h1>5-4-3-2-1 Grounding</h1>
+                <p>Take a deep breath and look around you. Acknowledge the following:</p>
+            </header>
+
+            <div class="options-grid">
+                <button class="option-btn" onclick="this.classList.toggle('selected')">👀 <strong>5</strong> things you
+                    can see</button>
+                <button class="option-btn" onclick="this.classList.toggle('selected')">✋ <strong>4</strong> things you
+                    can physically feel</button>
+                <button class="option-btn" onclick="this.classList.toggle('selected')">👂 <strong>3</strong> things you
+                    can hear</button>
+                <button class="option-btn" onclick="this.classList.toggle('selected')">👃 <strong>2</strong> things you
+                    can smell</button>
+                <button class="option-btn" onclick="this.classList.toggle('selected')">👅 <strong>1</strong> thing you
+                    can taste</button>
+            </div>
+
+            <button class="primary-btn" onclick="window.location.href='toolkit.html'">I feel more grounded</button>
+        </section>
+
+    </main>
+
+    <script src="js/exercise.js"></script>
+    <script src="js/interactive.js"></script>
+</body>
+
+</html>

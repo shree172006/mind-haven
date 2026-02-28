@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thought Record | Mind Haven</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <div id="emergency-bar" class="emergency-bar">
+        <p>Immediate danger? Call emergency services or <a href="resources.html#helplines">click here for crisis lifelines.</a>
+        </p>
+    </div>
+
+    <header class="navbar">
+        <div class="nav-brand">Mind Haven</div>
+        <nav>
+            <a href="toolkit.html" class="active">← Back to Toolkit</a>
+            <a href="resources.html">Resources</a>
+        </nav>
+    </header>
+
+    <main class="container">
+        <header>
+            <h1>Thought Record</h1>
+            <p>Our thoughts directly influence our feelings. Use this journal to untangle a stressful situation and find
+                a more balanced perspective.</p>
+        </header>
+
+
+
+        <div class="journal-card">
+            <form id="thought-record-form" onsubmit="saveEntry(event)">
+
+                <div class="form-group">
+                    <label for="situation">1. The Situation</label>
+                    <p class="form-hint">What triggered this feeling? Briefly describe what happened.</p>
+                    <textarea id="situation" rows="3"
+                        placeholder="Example: My boss sent me a short email asking for a meeting..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="emotion">2. Your Emotion</label>
+                    <p class="form-hint">How did you feel? (e.g., Anxious, Sad, Angry)</p>
+                    <input type="text" id="emotion" placeholder="Example: Anxious, panicky...">
+                </div>
+
+                <div class="form-group">
+                    <label for="thought">3. The Automatic Thought</label>
+                    <p class="form-hint">What was the immediate negative thought that went through your mind?</p>
+                    <textarea id="thought" rows="3"
+                        placeholder="Example: 'I must have messed up the project. I'm going to get fired.'"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="challenge">4. The Challenge</label>
+                    <p class="form-hint">Is this thought a 100% true fact? Is there another, more realistic way to look
+                        at this?</p>
+                    <textarea id="challenge" rows="3"
+                        placeholder="Example: 'She usually sends short emails when she is busy. It could just be a routine check-in.'"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="reframe">5. The Balanced Reframe</label>
+                    <p class="form-hint">Based on the challenge above, write a kinder, more balanced thought.</p>
+                    <textarea id="reframe" rows="3"
+                        placeholder="Example: 'I don't know what the meeting is about yet. I will do my best to prepare, but I don't need to assume the worst.'"></textarea>
+                </div>
+
+                <div id="success-message" class="success-alert" style="display: none;">
+                    ✅ Your thought record has been securely saved to your device.
+                </div>
+
+                <div class="nav-buttons">
+                    <button type="button" class="secondary-btn"
+                        onclick="document.getElementById('thought-record-form').reset()">Clear</button>
+                    <button type="submit" class="primary-btn">Save Reflection</button>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <script src="js/thought-record.js"></script>
+    <script src="js/interactive.js"></script>
+</body>
+
+</html>

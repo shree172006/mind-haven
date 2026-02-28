@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Collected Data | Mind Haven</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div id="emergency-bar" class="emergency-bar">
+        <p>Immediate danger? Call emergency services or <a href="resources.html#helplines">click here for crisis lifelines.</a></p>
+    </div>
+
+    <header class="navbar">
+        <div class="nav-brand">Mind Haven</div>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="assessment.html">Assessment</a>
+            <a href="toolkit.html">Toolkit</a>
+            <a href="resources.html">Resources</a>
+        </nav>
+    </header>
+
+    <main class="container">
+        <header>
+            <h1>Stored Responses</h1>
+            <p>This page shows all completed assessments stored in your browser. It is only available on this device and uses localStorage.</p>
+        </header>
+
+        <div class="nav-buttons">
+            <button class="primary-btn" onclick="downloadAll()">Download All as CSV</button>
+            <button class="secondary-btn" onclick="clearAll()">Clear Stored Data</button>
+            <button class="secondary-btn" onclick="fetchFromFirestore()">Load From Firestore</button>
+        </div>
+
+        <div id="data-table" style="margin-top:20px;overflow:auto;max-height:500px;"></div>
+    </main>
+
+    <!-- include Firebase client libraries (compat mode for simplicity) -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+    <script>
+        // TODO: replace config with your Firebase project's settings
+        const firebaseConfig = {
+            apiKey: "YOUR_API_KEY",
+            authDomain: "YOUR_AUTH_DOMAIN",
+            projectId: "YOUR_PROJECT_ID",
+            storageBucket: "YOUR_STORAGE_BUCKET",
+            messagingSenderId: "YOUR_SENDER_ID",
+            appId: "YOUR_APP_ID"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
+        function loadData() {
+            let all;
+            try {
+                all = JSON.parse(localStorage.getItem('mindHaven_allResults') || '[]');
+            } catch(e) { all = []; }
+            const container = document.getElementById('data-table');
+            if (!all.length) {
+                container.innerHTML = '<p>No responses stored.</p>';
+                return;
+            }
+            // build table
+            const headers = ['timestamp','totalScore','depressionScore','anxietyScore','resultIndex','severity','title','explanation'];
+            const table = document.createElement('table');
+            table.style.width='100%';
+            table.style.borderCollapse='collapse';
+            const thead = document.createElement('thead');
+            const tr = document.createElement('tr');
+            headers.forEach(h=>{const th=document.createElement('th');th.innerText=h;th.style.border='1px solid #ddd';th.style.padding='4px';tr.appendChild(th);});
+            thead.appendChild(tr);
+            table.appendChild(thead);
+            const tbody=document.createElement('tbody');
+            all.forEach(r=>{
+                const tr=document.createElement('tr');
+                headers.forEach(h=>{
+                    const td=document.createElement('td');
+                    td.innerText=r[h]||'';
+                    td.style.border='1px solid #ddd';td.style.padding='4px';
+                    tr.appendChild(td);
+                });
+                tbody.appendChild(tr);
+            });
+            table.appendChild(tbody);
+            container.innerHTML='';
+            container.appendChild(table);
+        }
+        function downloadAll() {
+            let all;
+            try { all = JSON.parse(localStorage.getItem('mindHaven_allResults') || '[]'); } catch(e){all=[];}
+            if (!all.length) return alert('No data');
+            const headers = ['timestamp','totalScore','depressionScore','anxietyScore','resultIndex','severity','title','explanation'];
+            const rows = all.map(r => {
+                return headers.map(h=> '"'+((r[h]||'').toString().replace(/"/g,'""'))+'"').join(',');
+            });
+            const csv = headers.join(',') + '\n' + rows.join('\n');
+            const blob = new Blob([csv],{ type:'text/csv;charset=utf-8;' });
+            const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='mindhaven_all_'+Date.now()+'.csv';a.style.display='none';document.body.appendChild(a);a.click();document.body.removeChild(a);
+        }
+        function clearAll(){ if(confirm('Remove all stored results?')){ localStorage.removeItem('mindHaven_allResults'); loadData(); }}
+        
+        function fetchFromFirestore() {
+            const container = document.getElementById('data-table');
+            container.innerHTML = '<p>Loading from Firestore...</p>';
+            db.collection('results').get().then(snapshot=>{
+                const docs = [];
+                snapshot.forEach(doc=>docs.push({ id: doc.id, ...doc.data() }));
+                if (!docs.length) {
+                    container.innerHTML = '<p>No documents found in Firestore.</p>';
+                    return;
+                }
+                // reuse table-building from loadData but with docs and extra id field
+                const headers = ['id','timestamp','totalScore','depressionScore','anxietyScore','resultIndex','severity','title','explanation'];
+                const table = document.createElement('table');
+                table.style.width='100%';
+                table.style.borderCollapse='collapse';
+                const thead = document.createElement('thead');
+                const tr = document.createElement('tr');
+                headers.forEach(h=>{const th=document.createElement('th');th.innerText=h;th.style.border='1px solid #ddd';th.style.padding='4px';tr.appendChild(th);});
+                thead.appendChild(tr);
+                table.appendChild(thead);
+                const tbody=document.createElement('tbody');
+                docs.forEach(r=>{
+                    const tr=document.createElement('tr');
+                    headers.forEach(h=>{
+                        const td=document.createElement('td');
+                        td.innerText=r[h]||'';
+                        td.style.border='1px solid #ddd';td.style.padding='4px';
+                        tr.appendChild(td);
+                    });
+                    tbody.appendChild(tr);
+                });
+                table.appendChild(tbody);
+                container.innerHTML='';
+                container.appendChild(table);
+            }).catch(err=>{
+                container.innerHTML = '<p>Error loading Firestore: ' + err.message + '</p>';
+            });
+        }
+
+        loadData();
+    </script>
+</body>
+</html>
